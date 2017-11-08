@@ -1,31 +1,24 @@
 
-import React from 'react'
+import React from 'react';
+import {DatePicker, message} from 'antd';
 
 
 class Hello extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            msg : []
+            date : '',
         }
     }
-    componentDidMount() {
-        const xhr = new XMLHttpRequest()
-        xhr.open('GET','/app',true)
-        xhr.send()
-        xhr.onreadystatechange = () => {
-            if(xhr.readyState === XMLHttpRequest.DONE && xhr.status == 200) {
-                let msg = JSON.parse(xhr.res)
-            } else {
-                console.log('error')
-            }
-        }
-    };
-
+    handleChange(date) {
+        message.info('您选择的日期是: ' + date.toString());
+        this.setState({ date });
+    }
     render() {
         return (
             <div>
-                Hello,React!
+                <DatePicker onChange={value => this.handleChange(value)} />
+                <div style={{marginTop: 20}}>当前日期: {this.state.date.toString()} </div>
             </div>
         )
     }
